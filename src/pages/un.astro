@@ -13,18 +13,17 @@ import penguins from "../assets/penguins.json";
     <div class="my-8 m-5">
         <p class="text-xl my-5">Choisissez une espèce de manchot :</p>
         <select id="species">
-            <option value="species/Adelie">Adelie</option>
-            <option value="species/Chinstrap">Chinstrap</option>
-            <option value="species/Gentoo">Gentoo</option>
+            <option value="/species/Adelie">Adelie</option>
+            <option value="/species/Chinstrap">Chinstrap</option>
+            <option value="/species/Gentoo">Gentoo</option>
         </select>
         <script>
             document
                 .querySelector("#species")
                 ?.addEventListener("change", (evt) => {
                     const value = (evt.target as HTMLSelectElement).value;
-                    const segments = location.pathname.split("/");
-                    segments[segments.length - 1] = value;
-                    location.pathname = segments.join("/");
+
+                    location.pathname = value;
                 });
         </script>
     </div>
