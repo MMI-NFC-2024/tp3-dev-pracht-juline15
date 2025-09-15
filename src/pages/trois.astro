@@ -17,27 +17,14 @@ const penguinsChinstrap = penguins.filter(
     <h3 class="text-3xl m-5">Menu</h3>
 
     <nav class="m-5">
-        <ul class="flex gap-2">
-            <li>
-                <a
-                    class="border-2 border-purple-500 p-2 rounded-full"
-                    href="#Gentoo">Gentoo</a
-                >
-            </li>
-            <li>
-                <a
-                    class="border-2 border-purple-500 p-2 rounded-full"
-                    href="#Chinstrap">Chinstrap</a
-                >
-            </li>
-            <li>
-                <a
-                    class="border-2 border-purple-500 p-2 rounded-full"
-                    href="#Adelie">Adelie</a
-                >
-            </li>
-        </ul>
+        <label for="species" class="mr-2">Choisissez une espèce :</label>
+        <select id="species">
+            <option value="Gentoo">Gentoo</option>
+            <option value="Chinstrap">Chinstrap</option>
+            <option value="Adelie">Adelie</option>
+        </select>
     </nav>
+
     <div class="flex gap-2 overflow-x-auto scroll-smooth">
         <div class="min-w-full m-5" id="Gentoo">
             <h3 class="text-3xl">Gentoo</h3>
@@ -83,3 +70,24 @@ const penguinsChinstrap = penguins.filter(
         </div>
     </div>
 </Layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const select = document.getElementById("species");
+
+        select?.addEventListener("change", (evt) => {
+            const value = evt.target.value;
+            window.location.hash = value;
+        });
+
+        if (window.location.hash) {
+            const current = window.location.hash.replace("#", "");
+            if (
+                select &&
+                [...select.options].some((opt) => opt.value === current)
+            ) {
+                select.value = current;
+            }
+        }
+    });
+</script>
