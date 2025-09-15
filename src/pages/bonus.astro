@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import {
+    Tabs,
+    TabsList,
+    TabsTab,
+    TabsPanel,
+} from "accessible-astro-components";
+import GraphicSpecies from "../components/GraphicSpecies.astro";
+---
+
+<Layout>
+    <h1 class="text-2xl m-5">Test Astro et Plot (Observablehq)</h1>
+    <a class="text-blue-900 m-5" href="/">Retour aux étapes</a>
+    <h3 class="text-3xl m-5">Menu (version Tabs)</h3>
+
+    <Tabs>
+        <TabsList>
+            <TabsTab id="gentoo-tab" controls="gentoo-panel" selected>
+                Gentoo
+            </TabsTab>
+            <TabsTab id="chinstrap-tab" controls="chinstrap-panel">
+                Chinstrap
+            </TabsTab>
+            <TabsTab id="adelie-tab" controls="adelie-panel"> Adelie </TabsTab>
+        </TabsList>
+
+        <TabsPanel id="gentoo-panel" labelledby="gentoo-tab" selected>
+            <GraphicSpecies species="Gentoo" />
+        </TabsPanel>
+
+        <TabsPanel id="chinstrap-panel" labelledby="chinstrap-tab">
+            <GraphicSpecies species="Chinstrap" />
+        </TabsPanel>
+
+        <TabsPanel id="adelie-panel" labelledby="adelie-tab">
+            <GraphicSpecies species="Adelie" />
+        </TabsPanel>
+    </Tabs>
+</Layout>
