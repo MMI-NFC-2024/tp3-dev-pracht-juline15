@@ -3,28 +3,21 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-    <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
-    <a class="text-blue-900" href="/">Retour aux étapes</a>
+    <h1 class="text-2xl m-5">Test Astro et Plot (Observablehq)</h1>
+    <a class="text-blue-900 m-5" href="/">Retour aux étapes</a>
 
-    <nav>
-        <ul>
-            <li>
-                <a href="/species/Adelie" target="penguin-frame"> Adelie </a>
-            </li>
-            <li>
-                <a href="/species/Chinstrap" target="penguin-frame">
-                    Chinstrap
-                </a>
-            </li>
-            <li>
-                <a href="/species/Gentoo" target="penguin-frame"> Gentoo </a>
-            </li>
-        </ul>
+    <nav class="m-5">
+        <label for="species" class="mr-2">Choisissez une espèce :</label>
+        <select id="species">
+            <option value="Adelie">Adelie</option>
+            <option value="Chinstrap">Chinstrap</option>
+            <option value="Gentoo">Gentoo</option>
+        </select>
     </nav>
 
     <iframe
         name="penguin-frame"
-        src="/species/Adelie"
+        src="/species/Adelie/"
         id="penguin-iframe"
         style="width:100%; min-height:800px;"
     >
@@ -80,5 +73,14 @@ import Layout from "../layouts/Layout.astro";
                 resizeIframe(iframe);
             });
         }
+
+        const select = document.getElementById("species");
+        select?.addEventListener("change", (evt) => {
+            const value = evt.target.value;
+            const iframe = document.getElementById("penguin-iframe");
+            if (iframe) {
+                iframe.src = `/species/${value}/`;
+            }
+        });
     });
 </script>
