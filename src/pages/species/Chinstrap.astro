@@ -10,20 +10,22 @@ const penguinsChinstrap = penguins.filter(
 ---
 
 <Layout>
-    <h1 class="text-3xl">Chinstrap Penguins</h1>
-    <a class="text-blue-900" href="/un">Retour aux autres penguins</a>
+    <h1 class="text-3xl m-5">Chinstrap Penguins</h1>
+    <a class="text-blue-900 m-5" href="/un">Retour aux autres penguins</a>
 
-    <PlotFigure
-        options={{
-            marks: [
-                Plot.dot(penguinsChinstrap, {
-                    x: "culmen_length_mm",
-                    y: "culmen_depth_mm",
-                    fill: "species",
-                }),
-            ],
-            x: { label: "Culmen length (mm)" },
-            y: { label: "Culmen depth (mm)" },
-        }}
-    />
+    <div class="my-8 m-5">
+        <PlotFigure
+            options={{
+                marks: [
+                    Plot.dot(penguinsChinstrap, {
+                        x: "culmen_length_mm",
+                        y: "culmen_depth_mm",
+                        fill: "species",
+                    }),
+                ],
+                x: { label: "Culmen length (mm)" },
+                y: { label: "Culmen depth (mm)" },
+            }}
+        />
+    </div>
 </Layout>

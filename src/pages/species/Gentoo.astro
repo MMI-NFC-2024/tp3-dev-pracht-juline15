@@ -8,20 +8,22 @@ const penguinsGentoo = penguins.filter(({ species }) => species === "Gentoo");
 ---
 
 <Layout>
-    <h1 class="text-3xl">Gentoo Penguins</h1>
-    <a class="text-blue-900" href="/un">Retour aux autres penguins</a>
+    <h1 class="text-3xl m-5">Gentoo Penguins</h1>
+    <a class="text-blue-900 m-5" href="/un">Retour aux autres penguins</a>
 
-    <PlotFigure
-        options={{
-            marks: [
-                Plot.dot(penguinsGentoo, {
-                    x: "culmen_length_mm",
-                    y: "culmen_depth_mm",
-                    fill: "species",
-                }),
-            ],
-            x: { label: "Culmen length (mm)" },
-            y: { label: "Culmen depth (mm)" },
-        }}
-    />
+    <div class="my-8 m-5">
+        <PlotFigure
+            options={{
+                marks: [
+                    Plot.dot(penguinsGentoo, {
+                        x: "culmen_length_mm",
+                        y: "culmen_depth_mm",
+                        fill: "species",
+                    }),
+                ],
+                x: { label: "Culmen length (mm)" },
+                y: { label: "Culmen depth (mm)" },
+            }}
+        />
+    </div>
 </Layout>
