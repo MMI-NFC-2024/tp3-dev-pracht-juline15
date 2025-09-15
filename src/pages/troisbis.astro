@@ -3,6 +3,12 @@ import PlotFigure from "../components/PlotFigure.astro";
 import Layout from "../layouts/Layout.astro";
 import * as Plot from "@observablehq/plot";
 import penguins from "../assets/penguins.json";
+import {
+    Tabs,
+    TabsList,
+    TabsTab,
+    TabsPanel,
+} from "accessible-astro-components";
 
 const penguinsAdelie = penguins.filter(({ species }) => species === "Adelie");
 const penguinsGentoo = penguins.filter(({ species }) => species === "Gentoo");
@@ -14,20 +20,21 @@ const penguinsChinstrap = penguins.filter(
 <Layout>
     <h1 class="text-2xl m-5">Test Astro et Plot (Observablehq)</h1>
     <a class="text-blue-900 m-5" href="/">Retour aux étapes</a>
-    <h3 class="text-3xl m-5">Menu</h3>
+    <h3 class="text-3xl m-5">Menu (version Tabs)</h3>
 
-    <nav class="m-5">
-        <label for="species" class="mr-2">Choisissez une espèce :</label>
-        <select id="species">
-            <option value="Gentoo">Gentoo</option>
-            <option value="Chinstrap">Chinstrap</option>
-            <option value="Adelie">Adelie</option>
-        </select>
-    </nav>
+    <Tabs>
+        <TabsList>
+            <TabsTab id="gentoo-tab" controls="gentoo-panel" selected>
+                Gentoo
+            </TabsTab>
+            <TabsTab id="chinstrap-tab" controls="chinstrap-panel">
+                Chinstrap
+            </TabsTab>
+            <TabsTab id="adelie-tab" controls="adelie-panel"> Adelie </TabsTab>
+        </TabsList>
 
-    <div class="flex gap-2 overflow-x-auto scroll-smooth">
-        <div class="min-w-full m-5" id="Gentoo">
-            <h3 class="text-3xl">Gentoo</h3>
+        <TabsPanel id="gentoo-panel" labelledby="gentoo-tab" selected>
+            <h3 class="text-3xl m-5">Gentoo</h3>
             <PlotFigure
                 options={{
                     marks: [
@@ -39,9 +46,10 @@ const penguinsChinstrap = penguins.filter(
                     ],
                 }}
             />
-        </div>
-        <div class="min-w-full" id="Chinstrap">
-            <h3 class="text-3xl">Chinstrap</h3>
+        </TabsPanel>
+
+        <TabsPanel id="chinstrap-panel" labelledby="chinstrap-tab">
+            <h3 class="text-3xl m-5">Chinstrap</h3>
             <PlotFigure
                 options={{
                     marks: [
@@ -53,9 +61,10 @@ const penguinsChinstrap = penguins.filter(
                     ],
                 }}
             />
-        </div>
-        <div class="min-w-full" id="Adelie">
-            <h3 class="text-3xl">Adelie</h3>
+        </TabsPanel>
+
+        <TabsPanel id="adelie-panel" labelledby="adelie-tab">
+            <h3 class="text-3xl m-5">Adelie</h3>
             <PlotFigure
                 options={{
                     marks: [
@@ -67,28 +76,6 @@ const penguinsChinstrap = penguins.filter(
                     ],
                 }}
             />
-        </div>
-    </div>
+        </TabsPanel>
+    </Tabs>
 </Layout>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const select = document.getElementById("species");
-
-        select?.addEventListener("change", (evt) => {
-            const value = evt.target.value;
-            window.location.hash = value;
-        });
-
-      
-        if (window.location.hash) {
-            const current = window.location.hash.replace("#", "");
-            if (
-                select &&
-                [...select.options].some((opt) => opt.value === current)
-            ) {
-                select.value = current;
-            }
-        }
-    });
-</script>
