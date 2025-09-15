@@ -1,0 +1,29 @@
+---
+import * as Plot from "@observablehq/plot";
+import PlotFigure from "../../components/PlotFigure.astro";
+import penguins from "../../assets/penguins.json";
+import Layout from "../../layouts/Layout.astro";
+
+const penguinsChinstrap = penguins.filter(
+    ({ species }) => species === "Chinstrap",
+);
+---
+
+<Layout>
+    <h1 class="text-3xl">Chinstrap Penguins</h1>
+    <a class="text-blue-900" href="/un">Retour aux autres penguins</a>
+
+    <PlotFigure
+        options={{
+            marks: [
+                Plot.dot(penguinsChinstrap, {
+                    x: "culmen_length_mm",
+                    y: "culmen_depth_mm",
+                    fill: "species",
+                }),
+            ],
+            x: { label: "Culmen length (mm)" },
+            y: { label: "Culmen depth (mm)" },
+        }}
+    />
+</Layout>

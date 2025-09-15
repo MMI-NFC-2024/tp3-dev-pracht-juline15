@@ -1,0 +1,84 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+    <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
+    <a class="text-blue-900" href="/">Retour aux étapes</a>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="/species/Adelie" target="penguin-frame"> Adelie </a>
+            </li>
+            <li>
+                <a href="/species/Chinstrap" target="penguin-frame">
+                    Chinstrap
+                </a>
+            </li>
+            <li>
+                <a href="/species/Gentoo" target="penguin-frame"> Gentoo </a>
+            </li>
+        </ul>
+    </nav>
+
+    <iframe
+        name="penguin-frame"
+        src="/species/Adelie"
+        id="penguin-iframe"
+        style="width:100%; min-height:800px;"
+    >
+    </iframe>
+</Layout>
+
+<script>
+    function resizeIframe(iframe) {
+        try {
+            setTimeout(() => {
+                const iframeDocument =
+                    iframe.contentDocument || iframe.contentWindow.document;
+                const body = iframeDocument.body;
+                const html = iframeDocument.documentElement;
+
+                const height = Math.max(
+                    body.scrollHeight,
+                    body.offsetHeight,
+                    html.clientHeight,
+                    html.scrollHeight,
+                    html.offsetHeight,
+                );
+
+                const minHeight = 400;
+                const maxHeight = 1200;
+                const finalHeight = Math.max(
+                    minHeight,
+                    Math.min(height + 50, maxHeight),
+                );
+
+                iframe.style.height = finalHeight + "px";
+            }, 100);
+        } catch (error) {
+            console.warn(
+                "Impossible de redimensionner l'iframe automatiquement:",
+                error,
+            );
+            iframe.style.height = "600px";
+        }
+    }
+
+    window.addEventListener("resize", () => {
+        const iframe = document.getElementById("penguin-iframe");
+        if (iframe) {
+            resizeIframe(iframe);
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const iframe = document.getElementById("penguin-iframe");
+        if (iframe) {
+            iframe.addEventListener("load", () => {
+                resizeIframe(iframe);
+            });
+        }
+    });
+</script>

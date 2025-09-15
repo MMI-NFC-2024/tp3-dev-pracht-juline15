@@ -1,0 +1,85 @@
+---
+import PlotFigure from "../components/PlotFigure.astro";
+import Layout from "../layouts/Layout.astro";
+import * as Plot from "@observablehq/plot";
+import penguins from "../assets/penguins.json";
+
+const penguinsAdelie = penguins.filter(({ species }) => species === "Adelie");
+const penguinsGentoo = penguins.filter(({ species }) => species === "Gentoo");
+const penguinsChinstrap = penguins.filter(
+    ({ species }) => species === "Chinstrap",
+);
+---
+
+<Layout>
+    <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
+    <a class="text-blue-900" href="/">Retour aux étapes</a>
+    <h3 class="text-3xl">Menu</h3>
+
+    <nav>
+        <ul class="flex gap-2">
+            <li>
+                <a
+                    class="border-2 border-purple-500 p-2 rounded-full"
+                    href="#Gentoo">Gentoo</a
+                >
+            </li>
+            <li>
+                <a
+                    class="border-2 border-purple-500 p-2 rounded-full"
+                    href="#Chinstrap">Chinstrap</a
+                >
+            </li>
+            <li>
+                <a
+                    class="border-2 border-purple-500 p-2 rounded-full"
+                    href="#Adelie">Adelie</a
+                >
+            </li>
+        </ul>
+    </nav>
+    <div class="flex gap-2 overflow-x-auto scroll-smooth">
+        <div class="min-w-full" id="Gentoo">
+            <h3 class="text-3xl">Gentoo</h3>
+            <PlotFigure
+                options={{
+                    marks: [
+                        Plot.dot(penguinsGentoo, {
+                            x: "culmen_length_mm",
+                            y: "culmen_depth_mm",
+                            stroke: "species",
+                        }),
+                    ],
+                }}
+            />
+        </div>
+        <div class="min-w-full" id="Chinstrap">
+            <h3 class="text-3xl">Chinstrap</h3>
+            <PlotFigure
+                options={{
+                    marks: [
+                        Plot.dot(penguinsChinstrap, {
+                            x: "culmen_length_mm",
+                            y: "culmen_depth_mm",
+                            stroke: "species",
+                        }),
+                    ],
+                }}
+            />
+        </div>
+        <div class="min-w-full" id="Adelie">
+            <h3 class="text-3xl">Adelie</h3>
+            <PlotFigure
+                options={{
+                    marks: [
+                        Plot.dot(penguinsAdelie, {
+                            x: "culmen_length_mm",
+                            y: "culmen_depth_mm",
+                            stroke: "species",
+                        }),
+                    ],
+                }}
+            />
+        </div>
+    </div>
+</Layout>
